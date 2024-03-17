@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Post Detail{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>{{ post.title }}</h1>
+  <p>Posted by {{ post.author.first_name }} on {{ local_date }}</p>
+  <div class="post-content">
+    {{ post.content|safe }}
+  </div>
+
+  <h2>Comments</h2>
+  {% if post.comments %}
+    <ul>
+      {% for comment in post.comments %}
+        <li>
+          {{ comment.content }}
+          <p>Comment by {{ comment.author.first_name }} on {{ get_local_time(comment.date) }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No comments yet.</p>
+  {% endif %}
+
+  <form action="{{ url_for('views.add_comment', post_id=post.id) }}" method="POST">
+    {{ comment_form.hidden_tag() }}
+    {{ comment_form.content.label }}<br>
+    {{ comment_form.content(size=50) }}<br>
+    {{ comment_form.submit() }}
+  </form>
+</div>
+{% endblock %}

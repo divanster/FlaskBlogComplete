@@ -1,0 +1,43 @@
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block content %}#}
+{#    <h1>User Followers</h1>#}
+{#    <div id="followers-list"></div>#}
+{##}
+{#    <script>#}
+{#        // Fetch followers data from the endpoint#}
+{#        fetch('/get_followers/username')#}
+{#            .then(response => response.json())#}
+{#            .then(data => {#}
+{#                // Clear any existing content in the followers-list div#}
+{#                document.getElementById('followers-list').innerHTML = '';#}
+{##}
+{#                // Loop through the followers data and create HTML elements to display it#}
+{#                data.forEach(follower => {#}
+{#                    const followerDiv = document.createElement('div');#}
+{#                    followerDiv.textContent = `Username: ${follower.username}, Email: ${follower.email}`;#}
+{#                    document.getElementById('followers-list').appendChild(followerDiv);#}
+{#                });#}
+{#            })#}
+{#            .catch(error => {#}
+{#                console.error('Error fetching followers:', error);#}
+{#                // Display an error message if there's an issue fetching the data#}
+{#                document.getElementById('followers-list').textContent = 'Error fetching followers. Please try again later.';#}
+{#            });#}
+{#    </script>#}
+{#{% endblock %}#}
+
+
+<!-- followers.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>User Followers</h1>
+    <div id="followers-list">
+        {% for follower in followers_info %}
+            <div>
+                Username: {{ follower.username }}, Email: {{ follower.email }}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
