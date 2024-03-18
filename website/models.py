@@ -6,8 +6,6 @@ import sqlalchemy
 from sqlalchemy.orm import relationship
 from sqlalchemy import DateTime
 
-
-
 # Define User model
 followers = db.Table(
     'followers',
@@ -67,8 +65,8 @@ class User(db.Model, UserMixin):
     def following_posts(self):
         return BlogPost.query.join(
             followers, (followers.c.followed_id == BlogPost.user_id)).filter(
-                followers.c.follower_id == self.id).order_by(
-                    BlogPost.timestamp.desc())
+            followers.c.follower_id == self.id).order_by(
+            BlogPost.timestamp.desc())
 
     def has_liked(self, post):
         return Like.query.filter_by(user_id=self.id, blog_post_id=post.id).first() is not None
@@ -101,7 +99,6 @@ class BlogPost(db.Model):
 
     def get_like_count(self):
         return len(self.likes)
-
 
 
 # Define Comment model
