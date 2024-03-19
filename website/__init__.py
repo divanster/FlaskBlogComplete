@@ -13,6 +13,7 @@ import os
 from config import Config
 from flask_migrate import Migrate
 from flask_mail import Mail
+from dotenv import load_dotenv
 
 # from utilities import get_local_time  # <--- Import the function
 
@@ -36,8 +37,11 @@ mail = Mail()
 
 
 def create_app(config_class=Config):
+    load_dotenv()
+
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'hjshjhdjah kjshkjdhjs'
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+    # app.config['SECRET_KEY'] = 'hjshjhdjah kjshkjdhjs'
     # app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config.from_object(config_class)
     db.init_app(app)

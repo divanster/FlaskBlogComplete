@@ -1,69 +1,4 @@
-2024-03-14 17:10:46,938 ERROR: Exception on /blogpost [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
-Traceback (most recent call last):
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 872, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 870, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 855, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
-    return current_app.ensure_sync(func)(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 76, in blogpost
-    return render_template('blogpost.html', post_form=post_form, comment_form=comment_form,
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 1301, in render
-    self.environment.handle_exception()
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 936, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/blogpost.html", line 1, in top-level template code
-    {% extends 'base.html' %}
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/base.html", line 49, in top-level template code
-    <div class="container">{% block content %} {% endblock %}</div>
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/blogpost.html", line 38, in block 'content'
-    <form method="POST" action="{{ url_for('views.toggle_follow', username=post.author.first_name, user_id=post.author.id) }}">
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1074, in url_for
-    return self.handle_url_build_error(error, endpoint, values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1063, in url_for
-    rv = url_adapter.build(  # type: ignore[union-attr]
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/werkzeug/routing/map.py", line 919, in build
-    raise BuildError(endpoint, values, method, self)
-werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'views.toggle_follow' with values ['user_id', 'username']. Did you mean 'views.get_followers' instead?
-2024-03-14 17:12:38,359 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
-2024-03-14 18:50:25,260 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
-2024-03-14 19:17:23,066 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
-2024-03-14 19:48:08,955 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
-2024-03-14 19:50:28,635 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
-2024-03-14 19:51:54,587 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
-2024-03-14 19:52:43,752 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
-2024-03-14 19:53:43,033 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
-2024-03-14 19:56:31,175 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
-2024-03-14 20:38:05,630 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
-2024-03-14 20:38:49,475 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
-2024-03-14 20:39:27,205 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
-2024-03-14 20:40:12,365 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
-2024-03-14 20:40:30,428 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
-2024-03-14 20:41:04,195 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
-2024-03-14 20:41:37,210 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
-2024-03-14 20:42:08,053 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
-2024-03-14 20:42:56,480 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
-2024-03-14 20:42:58,130 ERROR: Exception on /blogpost [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+2024-03-14 20:42:59,427 ERROR: Exception on /blogpost [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
 Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -110,3 +45,57 @@ Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/werkzeug/routing/map.py", line 919, in build
     raise BuildError(endpoint, values, method, self)
 werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'views.unlike_post' with values ['post_id']. Did you mean 'views.like_post' instead?
+2024-03-14 20:43:07,366 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
+2024-03-14 20:44:18,417 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
+2024-03-14 20:44:48,141 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
+2024-03-14 20:49:59,486 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
+2024-03-14 20:51:14,455 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
+2024-03-14 20:52:44,943 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
+2024-03-14 20:54:00,735 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
+2024-03-14 20:54:01,803 ERROR: Exception on /blogpost [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+Traceback (most recent call last):
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 76, in blogpost
+    return render_template('blogpost.html', post_form=post_form, comment_form=comment_form,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/blogpost.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/base.html", line 49, in top-level template code
+    <div class="container">{% block content %} {% endblock %}</div>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/blogpost.html", line 67, in block 'content'
+    {% if post.content.strip|length > 100 %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: object of type 'builtin_function_or_method' has no len()
+2024-03-14 20:55:20,350 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
+2024-03-14 20:57:51,639 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
+2024-03-14 20:59:26,378 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
+2024-03-14 21:00:40,442 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
+2024-03-14 21:10:37,428 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
+2024-03-14 21:11:00,324 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
+2024-03-14 21:12:53,463 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]
+2024-03-14 21:17:02,453 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:84]

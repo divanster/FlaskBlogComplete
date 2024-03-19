@@ -1,37 +1,52 @@
 {% extends "base.html" %}
+
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container mt-5">
   <div class="row">
     <div class="col-md-6">
       {% if user %}
-        <h1>{{ user.username }}</h1>
-        <td><img src="{{ user.avatar(128) }}"></td>
-        <p><strong>Email:</strong> {{ user.email }}</p>
-        <p><strong>About Me:</strong> {{ user.about_me }}</p>
-        <p><strong>Last Seen:</strong> {{ user.last_seen }}</p>
-        {% if user == current_user %}
-          <a href="{{ url_for('views.edit_profile') }}" class="btn btn-primary">Edit Profile</a>
-        {% endif %}
+      <div class="card">
+        <div class="card-body">
+          <h1 class="card-title">{{ user.first_name }}</h1>
+          <img src="{{ user.avatar(150) }}" class="card-img-top" alt="User Avatar">
+          <div class="card-text">
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>About Me:</strong> {{ user.about_me }}</p>
+            <p><strong>Last Seen:</strong> {{ user.last_seen }}</p>
+            {% if user == current_user %}
+            <a href="{{ url_for('views.edit_profile') }}" class="btn btn-primary">Edit Profile</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
       {% else %}
-        <p>No user found.</p>
+      <div class="alert alert-danger" role="alert">
+        No user found.
+      </div>
       {% endif %}
     </div>
     <div class="col-md-6">
       <h2>Blog Posts</h2>
-      <ul>
+      <div class="list-group">
         {% if user and user.blog_posts %}
-          {% for post in user.blog_posts %}
-            <li><a href="{{ url_for('views.blogpost', post_id=post.id) }}">{{ post.title }}</a></li>
-            <li>{{ post.content | safe }}</li>
-          {% endfor %}
-        {% else %}
-          <li>No blog posts found.</li>
+        {% for post in user.blog_posts %}
+        <div class="list-group-item list-group-item-action">
+          <h5 class="mb-1" style="color: blue;">{{ post.title }}</h5>
+          <p class="mb-1">{{ post.content[:100] }}{% if post.content|length > 100 %}... <a href="{{ url_for('views.blogpost', post_id=post.id) }}">Read More</a>{% endif %}</p>
+        </div>
+        {% if not loop.last %}
+        <hr> <!-- Add a horizontal line between each blog post -->
         {% endif %}
-      </ul>
+        {% endfor %}
+        {% else %}
+        <div class="alert alert-info" role="alert">
+          No blog posts found.
+        </div>
+        {% endif %}
+      </div>
     </div>
   </div>
 </div>
-
 {% endblock %}

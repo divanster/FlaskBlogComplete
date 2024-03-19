@@ -1,9 +1,9 @@
 import os
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-# load_dotenv(os.path.join(basedir, '.env'))
+load_dotenv(os.path.join(basedir, '.env'))
 
 
 class Config:
@@ -20,3 +20,4 @@ class Config:
     SESSION_COOKIE_SAMESITE = 'None'  # Set SameSite attribute to None
     SESSION_COOKIE_SECURE = True  # Set secure flag for HTTPS
     SESSION_COOKIE_HTTPONLY = True  # Set HttpOnly flag for better security
+    POSTS_PER_PAGE = 5

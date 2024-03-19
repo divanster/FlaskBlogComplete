@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
+from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify, current_app
 from website.models import User, Comment, BlogPost, Like
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
@@ -58,7 +58,7 @@ def delete_post(post_id):
 @login_required
 def blogpost():
     page = request.args.get('page', 1, type=int)
-    posts = BlogPost.query.order_by(BlogPost.date.desc()).paginate(page=page, per_page=5)
+    posts = BlogPost.query.order_by(BlogPost.date.desc()).paginate(page=page, per_page=current_app.config['POSTS_PER_PAGE'])
     post_form = PostForm()
     comment_form = CommentForm()  # Create an instance of the CommentForm
     form = EmptyForm()  # Create an instance of the EmptyForm
