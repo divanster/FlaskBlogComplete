@@ -33,7 +33,7 @@
         {% if user and user.blog_posts %}
         {% for post in user.blog_posts %}
         <div class="list-group-item list-group-item-action">
-          <h5 class="mb-1" style="color: blue;">{{ post.title }}</h5>
+          <h5 class="mb-1" style="color: blue;">{{ loop.index }}. {{ post.title }}</h5> <!-- Display post index -->
           <p class="mb-1">{{ post.content[:100] }}{% if post.content|length > 100 %}... <a href="{{ url_for('views.blogpost', post_id=post.id) }}">Read More</a>{% endif %}</p>
         </div>
         {% if not loop.last %}
