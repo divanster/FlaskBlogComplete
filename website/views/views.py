@@ -318,7 +318,8 @@ def send_message(recipient):
 @login_required
 def messages():
     current_user.last_message_read_time = datetime.now(timezone.utc)
-    current_user.unread_message_count = 0  # Assuming unread_message_count is an attribute of the User model
+    current_user.add_notification('unread_message_count', 0)
+    # current_user.unread_message_count = 0  # Assuming unread_message_count is an attribute of the User model
     db.session.commit()
 
     page = request.args.get('page', 1, type=int)
@@ -351,3 +352,4 @@ def notifications():
         'data': n.get_data(),
         'timestamp': n.timestamp
     } for n in notifications]
+

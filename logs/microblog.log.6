@@ -1,4 +1,4 @@
-2024-03-22 18:50:29,084 ERROR: Exception on /send_message/Noviyat [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+2024-03-22 22:19:22,838 ERROR: Exception on /messages [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
 Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -15,9 +15,9 @@ Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 313, in send_message
-    return render_template('send_message.html', title='Send Message',
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 336, in messages
+    return render_template('messages.html', messages=messages.items,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
     return _render(app, template, context)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -28,60 +28,16 @@ Traceback (most recent call last):
     self.environment.handle_exception()
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 936, in handle_exception
     raise rewrite_traceback_stack(source=source)
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/send_message.html", line 2, in top-level template code
-    {% import 'bootstrap/wtf.html' as wtf %}
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 65, in get_source
-    return self._get_source_fast(environment, template)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 99, in _get_source_fast
-    raise TemplateNotFound(template)
-jinja2.exceptions.TemplateNotFound: bootstrap/wtf.html
-2024-03-22 18:52:25,953 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:88]
-2024-03-22 18:52:28,539 ERROR: Exception on /send_message/Noviyat [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
-Traceback (most recent call last):
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 872, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 870, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 855, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
-    return current_app.ensure_sync(func)(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 313, in send_message
-    return render_template('send_message.html', title='Send Message',
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 1301, in render
-    self.environment.handle_exception()
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 936, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/send_message.html", line 1, in top-level template code
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/messages.html", line 1, in top-level template code
     {% extends "base.html" %}
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/base.html", line 38, in top-level template code
-    {% block content %}{% endblock %}
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/base.html", line 13, in top-level template code
+    {% include 'navbar.html' %}
     ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/send_message.html", line 13, in block 'content'
-    {{ wtf.form_field(form.message, class="form-control", placeholder="Enter your message") }}
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/navbar.html", line 15, in top-level template code
+    {% set unread_message_count = current_user.unread_message_count %}
     ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 485, in getattr
-    return getattr(obj, attribute)
-           ^^^^^^^^^^^^^^^^^^^^^^^
-jinja2.exceptions.UndefinedError: 'wtf' is undefined
-2024-03-22 18:52:48,705 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:88]
-2024-03-22 18:52:56,862 ERROR: Exception on /send_message/Noviyat [POST] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+TypeError: 'int' object is not callable
+2024-03-22 22:19:23,419 ERROR: Exception on /messages [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
 Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -98,11 +54,33 @@ Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 308, in send_message
-    user.notification('unread_message_count',
-    ^^^^^^^^^^^^^^^^^
-AttributeError: 'User' object has no attribute 'notification'. Did you mean: 'notifications'?
-2024-03-22 18:55:52,512 ERROR: Exception on /send_message/Noviyat [POST] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 336, in messages
+    return render_template('messages.html', messages=messages.items,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/messages.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/base.html", line 13, in top-level template code
+    {% include 'navbar.html' %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/navbar.html", line 15, in top-level template code
+    {% set unread_message_count = current_user.unread_message_count %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'int' object is not callable
+2024-03-22 22:19:28,451 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:88]
+2024-03-22 22:20:19,672 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:88]
+2024-03-22 22:31:06,052 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:88]
+2024-03-22 22:38:05,322 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:88]
+2024-03-22 22:38:06,545 ERROR: Exception on /notifications [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
 Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -119,8 +97,28 @@ Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 308, in send_message
-    user.notification('unread_message_count',
-    ^^^^^^^^^^^^^^^^^
-AttributeError: 'User' object has no attribute 'notification'. Did you mean: 'notifications'?
-2024-03-22 18:55:58,035 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:88]
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 356, in notifications
+    query = current_user.notifications.select().where(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'InstrumentedList' object has no attribute 'select'
+2024-03-22 22:38:12,797 ERROR: Exception on /notifications [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+Traceback (most recent call last):
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 356, in notifications
+    query = current_user.notifications.select().where(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'InstrumentedList' object has no attribute 'select'

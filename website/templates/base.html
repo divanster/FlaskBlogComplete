@@ -38,34 +38,34 @@
         {% block content %}{% endblock %}
     </div>
 
-    {% block scripts %}
-    <!-- JavaScript scripts -->
-    <script>
-  document.addEventListener('DOMContentLoaded', initializeNotifications);
-
-  function setMessageCount(n) {
-    const count = document.getElementById('message_count');
-    count.innerText = n;
-    count.style.visibility = n ? 'visible' : 'hidden';
-  }
-
-  {% if current_user.is_authenticated %}
-  function initializeNotifications() {
-    let since = 0;
-    setInterval(async function() {
-      const response = await fetch('{{ url_for('views.notifications') }}?since=' + since);
-      const notifications = await response.json();
-      for (let i = 0; i < notifications.length; i++) {
-        if (notifications[i].name == 'unread_message_count')
-          setMessageCount(notifications[i].data);
-        since = notifications[i].timestamp;
-      }
-    }, 10000);
-  }
-  document.addEventListener('DOMContentLoaded', initializeNotifications);
-  {% endif %}
-</script>
-    {% endblock %}
+{#    {% block scripts %}#}
+{#    <!-- JavaScript scripts -->#}
+{#    <script>#}
+{#  document.addEventListener('DOMContentLoaded', initializeNotifications);#}
+{##}
+{#  function setMessageCount(n) {#}
+{#    const count = document.getElementById('message_count');#}
+{#    count.innerText = n;#}
+{#    count.style.visibility = n ? 'visible' : 'hidden';#}
+{#  }#}
+{##}
+{#  {% if current_user.is_authenticated %}#}
+{#  function initializeNotifications() {#}
+{#    let since = 0;#}
+{#    setInterval(async function() {#}
+{#      const response = await fetch('{{ url_for('views.notifications') }}?since=' + since);#}
+{#      const notifications = await response.json();#}
+{#      for (let i = 0; i < notifications.length; i++) {#}
+{#        if (notifications[i].name == 'unread_message_count')#}
+{#          setMessageCount(notifications[i].data);#}
+{#        since = notifications[i].timestamp;#}
+{#      }#}
+{#    }, 10000);#}
+{#  }#}
+{#  document.addEventListener('DOMContentLoaded', initializeNotifications);#}
+{#  {% endif %}#}
+{#</script>#}
+{#    {% endblock %}#}
 
 
 

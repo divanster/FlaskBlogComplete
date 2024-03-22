@@ -13,8 +13,11 @@
                 <a class="nav-item nav-link" id="profile" href="{{ url_for('views.profile', first_name=current_user.first_name) }}">Profile</a>
                 <a class="nav-item nav-link" id="messages" href="{{ url_for('views.messages') }}">Messages
                     {% set unread_message_count = current_user.unread_message_count %}
-                    <span id="message_count" class="badge badge-pill badge-primary" {% if not unread_message_count %}style="display: none;"{% endif %}>
-                        {{ unread_message_count }}
+                    <span id="message_count" class="badge text-bg-danger"
+                          style="visibility: {% if unread_message_count %}visible
+                                         {% else %}hidden{% endif %};">
+
+                        {{ current_user.unread_message_count() }}
                     </span>
                 </a>
             {% else %}

@@ -1,4 +1,4 @@
-2024-03-22 18:56:02,793 ERROR: Exception on /send_message/Noviyat [POST] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+2024-03-22 22:38:16,499 ERROR: Exception on /notifications [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
 Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -15,12 +15,11 @@ Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 308, in send_message
-    user.notification('unread_message_count',
-    ^^^^^^^^^^^^^^^^^
-AttributeError: 'User' object has no attribute 'notification'. Did you mean: 'notifications'?
-2024-03-22 19:00:09,281 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:88]
-2024-03-22 19:00:18,890 ERROR: Exception on /send_message/Noviyat [POST] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 356, in notifications
+    query = current_user.notifications.select().where(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'InstrumentedList' object has no attribute 'select'
+2024-03-22 22:38:22,808 ERROR: Exception on /notifications [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
 Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -37,14 +36,11 @@ Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 308, in send_message
-    user.add_notification('unread_message_count', user.unread_message_count())
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/models.py", line 60, in add_notification
-    db.session.execute(self.notifications.delete().where(
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'InstrumentedList' object has no attribute 'delete'
-2024-03-22 19:02:04,118 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:88]
-2024-03-22 19:02:17,011 ERROR: Exception on /send_message/Ivan [POST] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 356, in notifications
+    query = current_user.notifications.select().where(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'InstrumentedList' object has no attribute 'select'
+2024-03-22 22:38:26,504 ERROR: Exception on /notifications [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
 Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -61,24 +57,11 @@ Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 312, in send_message
-    return redirect(url_for('views.profile', username=recipient))
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/helpers.py", line 220, in url_for
-    return current_app.url_for(
-           ^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1074, in url_for
-    return self.handle_url_build_error(error, endpoint, values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1063, in url_for
-    rv = url_adapter.build(  # type: ignore[union-attr]
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/werkzeug/routing/map.py", line 919, in build
-    raise BuildError(endpoint, values, method, self)
-werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'views.profile' with values ['username']. Did you forget to specify values ['first_name']?
-2024-03-22 19:04:11,024 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:88]
-2024-03-22 19:10:58,596 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:88]
-2024-03-22 19:11:00,530 ERROR: Exception on /messages [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 356, in notifications
+    query = current_user.notifications.select().where(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'InstrumentedList' object has no attribute 'select'
+2024-03-22 22:38:32,798 ERROR: Exception on /notifications [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
 Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -95,29 +78,49 @@ Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 333, in messages
-    return render_template('messages.html', messages=messages.items,
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 1301, in render
-    self.environment.handle_exception()
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 936, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/messages.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/base.html", line 38, in top-level template code
-    {% block content %}{% endblock %}
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/messages.html", line 4, in block 'content'
-    <h1>{{ _('Messages') }}</h1>
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/utils.py", line 83, in from_obj
-    if hasattr(obj, "jinja_pass_arg"):
-       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-jinja2.exceptions.UndefinedError: '_' is undefined
-2024-03-22 19:11:16,304 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:88]
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 356, in notifications
+    query = current_user.notifications.select().where(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'InstrumentedList' object has no attribute 'select'
+2024-03-22 22:38:36,510 ERROR: Exception on /notifications [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+Traceback (most recent call last):
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 356, in notifications
+    query = current_user.notifications.select().where(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'InstrumentedList' object has no attribute 'select'
+2024-03-22 22:38:42,823 ERROR: Exception on /notifications [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+Traceback (most recent call last):
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 356, in notifications
+    query = current_user.notifications.select().where(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'InstrumentedList' object has no attribute 'select'
