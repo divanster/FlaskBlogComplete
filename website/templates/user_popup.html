@@ -1,0 +1,28 @@
+<div class="user-popup">
+    <img src="{{ user.avatar(64) }}" style="margin: 5px; float: left">
+    <p><a href="{{ url_for('main.user', username=user.first_name) }}">{{ user.first_name }}</a></p>
+    {% if user.about_me %}
+        <p>{{ user.about_me }}</p>
+    {% endif %}
+    {% if user.last_seen %}
+        <p>Last seen on: {{ moment(user.last_seen).format('lll') }}</p>
+    {% endif %}
+    <p>{{ user.followers_count() }} followers, {{ user.following_count() }} following</p>
+    {% if user != current_user %}
+        {% if not current_user.is_following(user) %}
+            <p>
+                <form action="{{ url_for('main.follow', username=user.first_name) }}" method="post">
+                    {{ form.hidden_tag() }}
+                    <button type="submit" class="btn btn-outline-primary btn-sm">Follow</button>
+                </form>
+            </p>
+        {% else %}
+            <p>
+                <form action="{{ url_for('main.unfollow', username=user.first_name) }}" method="post">
+                    {{ form.hidden_tag() }}
+                    <button type="submit" class="btn btn-outline-primary btn-sm">Unfollow</button>
+                </form>
+            </p>
+        {% endif %}
+    {% endif %}
+</div>

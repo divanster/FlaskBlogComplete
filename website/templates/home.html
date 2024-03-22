@@ -5,31 +5,33 @@
 <div class="container">
   <h1 class="text-center mt-5">Welcome to BlogNotes</h1>
 
+  {% if current_user.is_authenticated %}
   <!-- Featured Content Section -->
   <section class="mt-5">
     <h2>Featured Notes</h2>
     <!-- Display featured notes here -->
     <div class="row">
+      {% for note in featured_notes %}
       <div class="col-md-4">
-        <!-- Card for featured note 1 -->
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ note.title }}</h5>
+            <p class="card-text">{{ note.content }}</p>
+          </div>
+        </div>
       </div>
-      <div class="col-md-4">
-        <!-- Card for featured note 2 -->
-      </div>
-      <div class="col-md-4">
-        <!-- Card for featured note 3 -->
-      </div>
+      {% endfor %}
     </div>
   </section>
 
-  <!-- Categories or Tags Section -->
+  <!-- Categories Section -->
   <section class="mt-5">
     <h2>Explore by Category</h2>
     <!-- Display links to categories or tags here -->
     <ul>
-      <li><a href="#">Category 1</a></li>
-      <li><a href="#">Category 2</a></li>
-      <li><a href="#">Category 3</a></li>
+      {% for category, posts in categorized_posts.items() %}
+      <li><a href="#{{ category }}">{{ category }}</a></li>
+      {% endfor %}
     </ul>
   </section>
 
@@ -37,10 +39,22 @@
   <section class="mt-5">
     <h2>Search Notes</h2>
     <!-- Display search bar here -->
-    <form>
-      <input type="text" placeholder="Search notes...">
+    <form action="/search" method="GET">
+      <input type="text" name="query" placeholder="Search notes...">
       <button type="submit">Search</button>
     </form>
+  </section>
+
+  <!-- Category-wise Posts Section -->
+  <section class="mt-5">
+    {% for category, posts in categorized_posts.items() %}
+    <h2 id="{{ category }}">{{ category }}</h2>
+    <ul>
+      {% for post in posts %}
+      <li><a href="{{ url_for('views.post_detail', post_id=post.id) }}">{{ post.title }}</a></li>
+      {% endfor %}
+    </ul>
+    {% endfor %}
   </section>
 
   <!-- Call-to-Action Section -->
@@ -49,5 +63,11 @@
     <!-- Display call-to-action button here -->
     <a href="#" class="btn btn-primary">Create New Note</a>
   </section>
+  {% else %}
+  <!-- Display login and sign up links for non-logged-in users -->
+  <div class="text-center mt-5">
+    <p>Please <a href="{{ url_for('auth.login') }}">log in</a> or <a href="{{ url_for('auth.signup') }}">sign up</a> to access the content.</p>
+  </div>
+  {% endif %}
 </div>
 {% endblock %}

@@ -1,24 +1,59 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify, current_app
-from website.models import User, Comment, BlogPost, Like
+from website.models import User, Comment, BlogPost, Like, Message, Notification
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
 
-from .forms import CommentForm, PostForm, EditPostForm, UpdateFirstNameForm, EditProfileForm, EmptyForm
-from datetime import date, datetime
+from .forms import CommentForm, PostForm, EditPostForm, UpdateFirstNameForm, EditProfileForm, EmptyForm, MessageForm
+from datetime import date, datetime, timezone
 from website.utilities import get_local_time
 from website.views import views
 from website import db
+from sqlalchemy import or_
 
 
 # views = Blueprint('views', __name__)
 
 # Define routes and functions...
 
-
-@views.route('/', methods=['GET', 'POST'])
-@login_required
+@views.route('/')
 def home():
-    return render_template("home.html", user=current_user)
+    # Check if the user is logged in
+    if current_user.is_authenticated:
+        # Define predefined keywords for each category
+        categories = {
+            'Nature': ['landscape', 'environment', 'wilderness', 'mountains', 'forests', 'rivers', 'oceans', 'wildlife',
+                       'flora', 'fauna', 'natural', 'ecology', 'habitat', 'climate', 'conservation', 'biodiversity',
+                       'ecosystem', 'outdoors', 'scenery', 'countryside'],
+            'Science': ['discovery', 'experiment', 'laboratory', 'theory', 'hypothesis', 'data', 'analysis',
+                        'observation',
+                        'experiment', 'scientific', 'technology', 'research', 'innovation', 'discovery', 'experiment',
+                        'laboratory', 'theory', 'hypothesis', 'data'],
+            'Animals': ['mammals', 'reptiles', 'amphibians', 'birds', 'insects', 'marine life', 'domesticated',
+                        'species',
+                        'habitat', 'conservation', 'zoology', 'behavior', 'wildlife', 'pets', 'domesticated', 'feline',
+                        'canine', 'pets', 'dog', 'bird', 'cat'],
+            'Politics': ['democracy', 'governance', 'legislation', 'policy', 'political', 'government',
+                         'administration',
+                         'diplomacy', 'elections', 'campaign', 'voting', 'legislation', 'policy', 'political',
+                         'government',
+                         'administration', 'diplomacy', 'elections', 'campaign']
+        }
+
+        # Initialize a dictionary to store posts for each category
+        categorized_posts = {}
+
+        # Loop through each category and fetch posts containing predefined keywords
+        for category, keywords in categories.items():
+            # Construct a filter expression to match any of the keywords for this category
+            filter_expression = or_(*(BlogPost.content.ilike('%' + keyword + '%') for keyword in keywords))
+            # Fetch posts matching the filter expression
+            posts = BlogPost.query.filter(filter_expression).all()
+            categorized_posts[category] = posts
+
+        return render_template('home.html', categorized_posts=categorized_posts, user=current_user)
+    else:
+        # Render a simplified home page for non-logged-in users
+        return render_template('welcome.html')
 
 
 @views.route('/add-comment/<int:post_id>', methods=['POST'])
@@ -58,7 +93,8 @@ def delete_post(post_id):
 @login_required
 def blogpost():
     page = request.args.get('page', 1, type=int)
-    posts = BlogPost.query.order_by(BlogPost.date.desc()).paginate(page=page, per_page=current_app.config['POSTS_PER_PAGE'])
+    posts = BlogPost.query.order_by(BlogPost.date.desc()).paginate(page=page,
+                                                                   per_page=current_app.config['POSTS_PER_PAGE'])
     post_form = PostForm()
     comment_form = CommentForm()  # Create an instance of the CommentForm
     form = EmptyForm()  # Create an instance of the EmptyForm
@@ -164,7 +200,6 @@ def unfollow(username):
     return redirect(url_for('views.blogpost'))  # Redirect to blogpost endpoint
 
 
-
 @views.route('/get_followers/<username>', methods=['GET'])
 @login_required
 def get_followers(username):
@@ -179,7 +214,8 @@ def get_followers(username):
 @login_required
 def followers():
     # Fetch follower information for the current user
-    followers_info = [{'username': follower.first_name, 'email': follower.email} for follower in current_user.followers.all()]
+    followers_info = [{'username': follower.first_name, 'email': follower.email} for follower in
+                      current_user.followers.all()]
     return render_template('followers.html', followers_info=followers_info, user=current_user)
 
 
@@ -232,3 +268,86 @@ def search():
     else:
         search_results = []
     return render_template('search.html', search_results=search_results, user=current_user)
+
+
+@views.route('/get-user-profile/<first_name>')
+@login_required
+def get_user_profile(first_name):
+    user = User.query.filter_by(first_name=first_name).first()
+
+    if user:
+        profile_data = {
+            'avatar': user.avatar(40),  # Generate avatar URL using the user's email
+            'name': user.first_name,
+            'email': user.email,
+            'bio': user.about_me,
+            'followers': user.followers_count()  # Assuming you have a followers_count method
+        }
+        return jsonify(profile_data)
+    else:
+        return jsonify({'error': 'User not found'}), 404
+
+
+@views.route('/followers/<username>', methods=['GET'])
+@login_required
+def show_followers(username):
+    user = User.query.filter_by(first_name=username).first_or_404()
+    followers = user.followers.all()
+    return render_template('followers.html', followers=followers, user=current_user)
+
+
+@views.route('/send_message/<recipient>', methods=['GET', 'POST'])
+@login_required
+def send_message(recipient):
+    user = db.first_or_404(db.select(User).where(User.first_name == recipient))
+    form = MessageForm()
+    if form.validate_on_submit():
+        msg = Message(author=current_user, recipient=user,
+                      body=form.message.data)
+        db.session.add(msg)
+        user.add_notification('unread_message_count', user.unread_message_count())
+
+        db.session.commit()
+        flash('Your message has been sent.')
+        return redirect(url_for('views.profile', first_name=recipient))
+    return render_template('send_message.html', title='Send Message',
+                           form=form, recipient=recipient, user=current_user)
+
+
+@views.route('/messages')
+@login_required
+def messages():
+    current_user.last_message_read_time = datetime.now(timezone.utc)
+    current_user.unread_message_count = 0  # Assuming unread_message_count is an attribute of the User model
+    db.session.commit()
+
+    page = request.args.get('page', 1, type=int)
+    query = current_user.messages_received.order_by(
+        Message.timestamp.desc())
+    messages = query.paginate(page=page,
+                              per_page=current_app.config['POSTS_PER_PAGE'],
+                              error_out=False)
+
+    next_url = url_for('views.messages', page=messages.next_num) \
+        if messages.has_next else None
+    prev_url = url_for('views.messages', page=messages.prev_num) \
+        if messages.has_prev else None
+
+    return render_template('messages.html', messages=messages.items,
+                           next_url=next_url, prev_url=prev_url, user=current_user)
+
+
+@views.route('/notifications')
+@login_required
+def notifications():
+    since = request.args.get('since', 0.0, type=float)
+    query = Notification.query.filter(
+        Notification.user_id == current_user.id,
+        Notification.timestamp > since
+    ).order_by(Notification.timestamp.asc())
+    notifications = query.all()
+    return [{
+        'name': n.name,
+        'data': n.get_data(),
+        'timestamp': n.timestamp
+    } for n in notifications]

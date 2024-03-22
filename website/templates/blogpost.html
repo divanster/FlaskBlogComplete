@@ -5,7 +5,7 @@
     <div class="row">
         <!-- User Profile -->
         <div class="col-4 col-md-8">
-            <!-- Display User Profile Data Here -->
+            <div id="user-profile-popup"></div>
         </div>
 
         <!-- Posts -->
@@ -41,12 +41,13 @@
                     <!-- Username -->
                     <div class="user-info">
                         <h2 class="card-title mb-1">
-                            <a href="{{ url_for('views.profile', first_name=post.author.first_name) }}">
+                            <a href="{{ url_for('views.profile', first_name=post.author.first_name) }}" class="user-name">
                                 {{ post.author.first_name }}
                             </a>
                         </h2>
                     </div>
                 </div>
+
 
                 <!-- Delete Button (if the current user is the author) -->
                 <div class="card-footer">
@@ -56,6 +57,11 @@
                             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                         </form>
                     {% endif %}
+
+                    {% if user != current_user %}
+                        <a href="{{ url_for('views.send_message', recipient=post.author.username) }}" class="btn btn-sm btn-primary">Send private message</a>
+                    {% endif %}
+
                 </div>
 
 
@@ -111,7 +117,8 @@
                                 <button type="submit" class="btn btn-sm btn-primary">Follow</button>
                             </form>
                         {% endif %}
-                        <span class="text-muted ml-2">Followers: <a href="{{ url_for('views.get_followers', username=post.author.first_name) }}">{{ post.author.followers_count() }}</a></span>
+                        <span class="text-muted ml-2">Followers: <a href="{{ url_for('views.show_followers', username=post.author.first_name) }}">{{ post.author.followers_count() }}</a></span>
+
                     {% endif %}
                 </div>
             </div>
@@ -147,3 +154,20 @@
     </div>
 </div>
 {% endblock %}
+
+{% block javascript %}
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('.ckeditor'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+
+
+
+    <script src="{{ url_for('static', filename='user_profile.js') }}"></script>
+{% endblock %}
+

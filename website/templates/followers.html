@@ -29,14 +29,36 @@
 
 
 <!-- followers.html -->
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block content %}#}
+{#    <h1>User Followers</h1>#}
+{#    <div id="followers-list">#}
+{#        {% for follower in followers_info %}#}
+{#            <div>#}
+{#                Username: {{ follower.username }}, Email: {{ follower.email }}#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
+{#{% endblock %}#}
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block content %}#}
+{#    <h1>User Followers</h1>#}
+{#    <div id="followers-list"></div>#}
+{##}
+{#    <script src="{{ url_for('static', filename='followers.js') }}"></script>#}
+{#{% endblock %}#}
+
+
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>User Followers</h1>
+    <h1>Followers of {{ username }}</h1>
     <div id="followers-list">
-        {% for follower in followers_info %}
+        {% for follower in followers %}
             <div>
-                Username: {{ follower.username }}, Email: {{ follower.email }}
+                Username: {{ follower.first_name }}, Email: {{ follower.email }}
             </div>
         {% endfor %}
     </div>

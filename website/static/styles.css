@@ -1,0 +1,14 @@
+/* Style the tooltip */
+#user-profile-tooltip {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 9999;
+}
+
+/* Style the profile info inside the tooltip */
+.profile-info img {
+  max-width: 100px;
+}

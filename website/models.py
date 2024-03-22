@@ -1,7 +1,9 @@
 from . import db
 from flask_login import UserMixin
-from datetime import datetime
+from datetime import datetime, timezone
 from hashlib import md5
+import json
+from time import time
 import sqlalchemy
 from sqlalchemy.orm import relationship
 from sqlalchemy import DateTime
@@ -14,6 +16,24 @@ followers = db.Table(
 )
 
 
+# Define Message model
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'), index=True)
+    recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'), index=True)
+    body = db.Column(db.String(140))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+
+    # Define relationships with backreferences
+    author = db.relationship('User', primaryjoin='Message.sender_id == User.id', back_populates='messages_sent')
+    recipient = db.relationship('User', primaryjoin='Message.recipient_id == User.id',
+                                back_populates='messages_received')
+
+
+def __repr__(self):
+    return '<Message {}>'.format(self.body)
+
+
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
@@ -23,6 +43,27 @@ class User(db.Model, UserMixin):
     about_me = db.Column(db.Text)
     timezone = db.Column(db.String(100))  # Add a timezone field
     registered_at = db.Column(db.DateTime, default=datetime.utcnow)
+    last_message_read_time = db.Column(db.DateTime)
+
+    messages_sent = db.relationship('Message', back_populates='author', lazy='dynamic',
+                                    foreign_keys='Message.sender_id')
+    messages_received = db.relationship('Message', back_populates='recipient', lazy='dynamic',
+                                        foreign_keys='Message.recipient_id')
+
+    notifications = db.relationship('Notification', back_populates='user')
+
+    def unread_message_count(self):
+        last_read_time = self.last_message_read_time or datetime(1900, 1, 1, tzinfo=timezone.utc)
+        return Message.query.filter_by(recipient=self).filter(Message.timestamp > last_read_time).count()
+
+    def add_notification(self, name, data):
+        # Iterate over notifications and delete them one by one
+        for notification in self.notifications:
+            db.session.delete(notification)
+        # Add a new notification
+        n = Notification(name=name, payload_json=json.dumps(data), user=self)
+        db.session.add(n)
+        return n
 
     # Define followers relationship
     followers = db.relationship(
@@ -76,6 +117,19 @@ class User(db.Model, UserMixin):
         if like:
             db.session.delete(like)
             db.session.commit()
+
+
+class Notification(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128), index=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), index=True)
+    timestamp = db.Column(db.Float, index=True, default=time)
+    payload_json = db.Column(db.Text)
+
+    user = db.relationship('User', back_populates='notifications')
+
+    def get_data(self):
+        return json.loads(self.payload_json)
 
 
 # Define BlogPost model
