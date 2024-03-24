@@ -9,81 +9,99 @@
     <title>{% block title %}Home{% endblock %}</title>
 </head>
 <body>
-    <!-- Your navbar has been removed and placed in navbar.html -->
-     {% include 'navbar.html' %}
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+            <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <a class="nav-item nav-link" id="home" href="{{ url_for('views.home') }}">Home</a>
+                    <a class="nav-item nav-link" id="logout" href="{{ url_for('auth.logout') }}">Logout</a>
+                    <a class="nav-item nav-link" id="changePassword" href="{{ url_for('auth.change_password') }}">Change Password</a>
+                    <a class="nav-item nav-link" id="blogpost" href="{{ url_for('views.blogpost') }}">Blogpost</a>
+                    <a class="nav-item nav-link" id="updateFirstName" href="{{ url_for('auth.update_first_name') }}">Update First Name</a>
+                    <a class="nav-item nav-link" id="profile" href="{{ url_for('views.profile', first_name=current_user.first_name) }}">Profile</a>
+                    <a class="nav-item nav-link" id="messages" href="{{ url_for('views.messages') }}">Messages
+                        {% set unread_message_count = current_user.unread_message_count() %}
+                        <span id="message_count" class="badge text-bg-danger"
+                            style="visibility: {% if unread_message_count %}visible{% else %}hidden{% endif %};">
+                            {{ unread_message_count }}
+                        </span>
+                    </a>
+                {% else %}
+                    <a class="nav-item nav-link" id="login" href="{{ url_for('auth.login') }}">Login</a>
+                    <a class="nav-item nav-link" id="signUp" href="{{ url_for('auth.sign_up') }}">Sign Up</a>
+                {% endif %}
+            </div>
 
+            <!-- Search Form -->
+            <div class="ml-auto">
+                <form class="form-inline my-2 my-lg-0" action="{{ url_for('views.search') }}" method="GET">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
-                {% if category == 'error' %}
-                    <div class="alert alert-danger alter-dismissable fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="close" data-dismiss="alert">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                {% else %}
-                    <div class="alert alert-success alter-dismissable fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="close" data-dismiss="alert">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                {% endif %}
+                <div class="alert alert-{{ category }} alter-dismissable fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             {% endfor %}
         {% endif %}
     {% endwith %}
 
+    <!-- Content Section -->
     <div class="container">
         {% block content %}{% endblock %}
     </div>
 
-{#    {% block scripts %}#}
-{#    <!-- JavaScript scripts -->#}
-{#    <script>#}
-{#  document.addEventListener('DOMContentLoaded', initializeNotifications);#}
-{##}
-{#  function setMessageCount(n) {#}
-{#    const count = document.getElementById('message_count');#}
-{#    count.innerText = n;#}
-{#    count.style.visibility = n ? 'visible' : 'hidden';#}
-{#  }#}
-{##}
-{#  {% if current_user.is_authenticated %}#}
-{#  function initializeNotifications() {#}
-{#    let since = 0;#}
-{#    setInterval(async function() {#}
-{#      const response = await fetch('{{ url_for('views.notifications') }}?since=' + since);#}
-{#      const notifications = await response.json();#}
-{#      for (let i = 0; i < notifications.length; i++) {#}
-{#        if (notifications[i].name == 'unread_message_count')#}
-{#          setMessageCount(notifications[i].data);#}
-{#        since = notifications[i].timestamp;#}
-{#      }#}
-{#    }, 10000);#}
-{#  }#}
-{#  document.addEventListener('DOMContentLoaded', initializeNotifications);#}
-{#  {% endif %}#}
-{#</script>#}
-{#    {% endblock %}#}
-
-
-
-
-
+    <!-- JavaScript -->
     {% block javascript %}
-    <script type="text/javascript">
-        function deleteNote(noteId) {
-            fetch("/delete-note", {
-                method: "POST",
-                body: JSON.stringify({ noteId: noteId }),
-            }).then((_res) => {
-                window.location.href = "/";
-            });
+        <script>
+            function deleteNote(noteId) {
+                fetch("/delete-note", {
+                    method: "POST",
+                    body: JSON.stringify({ noteId: noteId }),
+                }).then((_res) => {
+                    window.location.href = "/";
+                });
         }
-    </script>
-    {% endblock %}
+        </script>
+    <script>
+        function set_message_count(n) {
+            const count = document.getElementById('message_count');
+            count.innerText = n;
+            count.style.visibility = n ? 'visible' : 'hidden';
+        }
 
-    {{ bootstrap.load_js() }}
+        {% if current_user.is_authenticated %}
+        function initialize_notifications() {
+            let since = 0;
+            setInterval(async function() {
+                const response = await fetch('{{ url_for('views.notifications') }}?since=' + since);
+                const notifications = await response.json();
+                for (let i = 0; i < notifications.length; i++) {
+                    if (notifications[i].name == 'unread_message_count')
+                        set_message_count(notifications[i].data);
+                    since = notifications[i].timestamp;
+                }
+            }, 10000);
+        }
+        document.addEventListener('DOMContentLoaded', initialize_notifications);
+        {% endif %}
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    {% endblock %}
 </body>
 </html>
