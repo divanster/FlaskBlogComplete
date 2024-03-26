@@ -1,4 +1,4 @@
-2024-03-22 19:11:25,259 ERROR: Exception on /messages [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+2024-03-24 22:16:23,233 ERROR: Exception on /blogpost [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
 Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -15,9 +15,9 @@ Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 333, in messages
-    return render_template('messages.html', messages=messages.items,
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 112, in blogpost
+    return render_template('blogpost.html', post_form=post_form, comment_form=comment_form,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
     return _render(app, template, context)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -28,25 +28,18 @@ Traceback (most recent call last):
     self.environment.handle_exception()
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 936, in handle_exception
     raise rewrite_traceback_stack(source=source)
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/messages.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/base.html", line 38, in top-level template code
-    {% block content %}{% endblock %}
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/messages.html", line 17, in block 'content'
-    <span aria-hidden="true">&larr;</span> {{ _('Newer messages') }}
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/blogpost.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/base.html", line 69, in top-level template code
+    {% block javascript %}
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/blogpost.html", line 161, in block 'javascript'
+    {#    {{ render_form(post_form) }}#}
     ^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/utils.py", line 83, in from_obj
     if hasattr(obj, "jinja_pass_arg"):
        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-jinja2.exceptions.UndefinedError: '_' is undefined
-2024-03-22 19:11:42,659 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:88]
-2024-03-22 19:14:11,709 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:88]
-2024-03-22 19:19:48,567 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:88]
-2024-03-22 19:20:25,128 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:88]
-2024-03-22 19:20:47,087 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:88]
-2024-03-22 19:21:53,684 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:88]
-2024-03-22 19:21:55,268 ERROR: Exception on / [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+jinja2.exceptions.UndefinedError: 'render_form' is undefined
+2024-03-24 22:16:23,346 ERROR: Exception on /blogpost [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
 Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -60,9 +53,12 @@ Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 855, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 53, in home
-    return render_template('home.html', categorized_posts=categorized_posts, user=current_user)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 112, in blogpost
+    return render_template('blogpost.html', post_form=post_form, comment_form=comment_form,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
     return _render(app, template, context)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -73,18 +69,18 @@ Traceback (most recent call last):
     self.environment.handle_exception()
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 936, in handle_exception
     raise rewrite_traceback_stack(source=source)
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/home.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/base.html", line 13, in top-level template code
-    {% include 'navbar.html' %}
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/blogpost.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/base.html", line 69, in top-level template code
+    {% block javascript %}
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/blogpost.html", line 161, in block 'javascript'
+    {#    {{ render_form(post_form) }}#}
     ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 936, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/navbar.html", line 68, in template
-    {% endblock %}
-jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'endblock'. Jinja was looking for the following tags: 'endif'. The innermost block that needs to be closed is 'if'.
-2024-03-22 19:22:49,005 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:88]
-2024-03-22 19:22:50,267 ERROR: Exception on / [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/utils.py", line 83, in from_obj
+    if hasattr(obj, "jinja_pass_arg"):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'render_form' is undefined
+2024-03-24 22:16:23,546 ERROR: Exception on /blogpost [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
 Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -98,9 +94,12 @@ Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 855, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 53, in home
-    return render_template('home.html', categorized_posts=categorized_posts, user=current_user)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 112, in blogpost
+    return render_template('blogpost.html', post_form=post_form, comment_form=comment_form,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
     return _render(app, template, context)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -111,14 +110,14 @@ Traceback (most recent call last):
     self.environment.handle_exception()
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 936, in handle_exception
     raise rewrite_traceback_stack(source=source)
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/home.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/base.html", line 13, in top-level template code
-    {% include 'navbar.html' %}
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/blogpost.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/base.html", line 69, in top-level template code
+    {% block javascript %}
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/blogpost.html", line 161, in block 'javascript'
+    {#    {{ render_form(post_form) }}#}
     ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 936, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/navbar.html", line 81, in template
-    {% endif %} {% endfor %} {% endif %} {% endwith %}
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'endif'. You probably made a nesting mistake. Jinja is expecting this tag, but currently looking for 'endblock'. The innermost block that needs to be closed is 'block'.
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/utils.py", line 83, in from_obj
+    if hasattr(obj, "jinja_pass_arg"):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'render_form' is undefined

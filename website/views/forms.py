@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
+from flask_ckeditor import CKEditorField
 from website import db
 
 
@@ -11,19 +12,19 @@ class CommentForm(FlaskForm):
 
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
-    content = TextAreaField('Content', validators=[DataRequired()])
+    content = CKEditorField('Content', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 
 class EditPostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
-    content = TextAreaField('Content', validators=[DataRequired()])
+    content = CKEditorField('Content', validators=[DataRequired()])
     submit = SubmitField('Save Changes')
 
-
-class UpdateFirstNameForm(FlaskForm):
-    first_name = StringField('First Name', validators=[DataRequired()])
-    submit = SubmitField('Update First Name')
+#
+# class UpdateFirstNameForm(FlaskForm):
+#     first_name = StringField('First Name', validators=[DataRequired()])
+#     submit = SubmitField('Update First Name')
 
 
 class EditProfileForm(FlaskForm):

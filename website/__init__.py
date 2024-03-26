@@ -48,6 +48,7 @@ def create_app(config_class=Config):
     migrate.init_app(app, db)
     bootstrap.init_app(app)
     ckeditor.init_app(app)
+    mail.init_app(app)
 
     # Register the get_local_time filter here
     # app.jinja_env.filters['get_local_time'] = get_local_time

@@ -8,8 +8,9 @@
           <h2>Login</h2>
           {{ form.csrf_token }}
           {{ wtf.render_form(form, button_style='danger') }}
+          <!-- Add Reset Password link/button here -->
+          <a href="{{ url_for('auth.reset_password_request') }}" class="btn btn-danger">Reset Password</a>
         </div>
-
     </div>
 </div>
 {% endblock %}

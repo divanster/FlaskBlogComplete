@@ -157,17 +157,31 @@
 
 {% block javascript %}
 
-    <script src="https://cdn.ckeditor.com/ckeditor5/35.0.0/classic/ckeditor.js"></script>
-    <script>
-        ClassicEditor
-            .create(document.querySelector('.ckeditor'))
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
+{#    {{ ckeditor.load() }} {{ ckeditor.config(name='content') }}#}
+{#    {{ render_form(post_form) }}#}
+
+{#<script src="https://cdn.ckeditor.com/ckeditor5/35.0.0/classic/ckeditor.js"></script>#}
+{##}
+{#<script>#}
+{#    document.addEventListener('DOMContentLoaded', function() {#}
+{#        const editor = ClassicEditor#}
+{#            .create(document.querySelector('.ckeditor'))#}
+{#            .catch(error => {#}
+{#                console.error(error);#}
+{#            });#}
+{##}
+{#        // Prevent CKEditor instance destruction on form submission#}
+{#        document.querySelector('form').addEventListener('submit', function() {#}
+{#            // Optionally, you can destroy the editor here if needed#}
+{#            // editor.destroy();#}
+{#        });#}
+{#    });#}
+{#</script>#}
+
 
 
 
     <script src="{{ url_for('static', filename='user_profile.js') }}"></script>
+
 {% endblock %}
 

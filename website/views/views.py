@@ -3,7 +3,7 @@ from website.models import User, Comment, BlogPost, Like, Message, Notification
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
 
-from .forms import CommentForm, PostForm, EditPostForm, UpdateFirstNameForm, EditProfileForm, EmptyForm, MessageForm
+from .forms import CommentForm, PostForm, EditPostForm, EditProfileForm, EmptyForm, MessageForm
 from datetime import date, datetime, timezone
 from website.utilities import get_local_time
 from website.views import views

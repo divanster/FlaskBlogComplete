@@ -1,12 +1,17 @@
+from flask import current_app
+
 from . import db
 from flask_login import UserMixin
 from datetime import datetime, timezone
 from hashlib import md5
 import json
 from time import time
+from werkzeug.security import generate_password_hash, check_password_hash
 import sqlalchemy
 from sqlalchemy.orm import relationship
 from sqlalchemy import DateTime
+import jwt
+
 
 # Define User model
 followers = db.Table(
@@ -51,6 +56,26 @@ class User(db.Model, UserMixin):
                                         foreign_keys='Message.recipient_id')
 
     notifications = db.relationship('Notification', back_populates='user')
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    def get_reset_password_token(self, expires_in=600):
+        return jwt.encode(
+            {'reset_password': self.id, 'exp': time() + expires_in},
+            current_app.config['SECRET_KEY'], algorithm='HS256')
+
+    @staticmethod
+    def verify_reset_password_token(token):
+        try:
+            id = jwt.decode(token, current_app.config['SECRET_KEY'],
+                            algorithms=['HS256'])['reset_password']
+        except Exception:
+            return
+        return db.session.get(User, id)
 
     def unread_message_count(self):
         last_read_time = self.last_message_read_time or datetime(1900, 1, 1, tzinfo=timezone.utc)
