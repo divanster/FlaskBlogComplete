@@ -1,52 +1,4 @@
-2024-03-28 17:05:28,211 ERROR: Exception on /messages [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
-Traceback (most recent call last):
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 872, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 870, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 855, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
-    return current_app.ensure_sync(func)(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 337, in messages
-    return render_template('messages.html', messages=messages.items,
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 1301, in render
-    self.environment.handle_exception()
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 936, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/messages.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/base.html", line 65, in top-level template code
-    {% block content %}{% endblock %}
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/messages.html", line 8, in block 'content'
-    <p><strong>From:</strong> <a href="{{ url_for('views.profile', username=message.author.username) }}">{{ message.author.first_name }}</a></p>
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1074, in url_for
-    return self.handle_url_build_error(error, endpoint, values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1063, in url_for
-    rv = url_adapter.build(  # type: ignore[union-attr]
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/werkzeug/routing/map.py", line 919, in build
-    raise BuildError(endpoint, values, method, self)
-werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'views.profile' with values ['username']. Did you forget to specify values ['first_name']?
-2024-03-28 17:06:51,352 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:89]
-2024-03-28 17:06:55,637 ERROR: Exception on /messages [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+2024-03-28 17:12:05,982 ERROR: Exception on /messages [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
 Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -93,5 +45,51 @@ Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/werkzeug/routing/map.py", line 919, in build
     raise BuildError(endpoint, values, method, self)
 werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'views.profile' with values ['user_id']. Did you forget to specify values ['first_name']?
-2024-03-28 17:08:20,108 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:89]
-2024-03-28 17:10:53,676 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:89]
+2024-03-28 17:12:06,227 ERROR: Exception on /messages [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+Traceback (most recent call last):
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 337, in messages
+    return render_template('messages.html', messages=messages.items,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/messages.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/base.html", line 65, in top-level template code
+    {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/messages.html", line 8, in block 'content'
+    <p><strong>From:</strong> <a href="{{ url_for('views.profile', user_id=message.author.id) }}">{{ message.author.first_name }}</a></p>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1074, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1063, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/werkzeug/routing/map.py", line 919, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'views.profile' with values ['user_id']. Did you forget to specify values ['first_name']?
+2024-03-28 17:16:59,640 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:89]

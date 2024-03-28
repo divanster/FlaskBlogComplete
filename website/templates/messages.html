@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="container mt-4">
     <h1>Messages</h1>
-    <div class="messages">
+    <div class="messages mt-4">
         {% for message in messages %}
-            <div class="message">
-                <p><strong>From:</strong> <a href="{{ url_for('views.profile', first_name=message.author.first_name) }}">{{ message.author.first_name }}</a></p>
-                <p><strong>Timestamp:</strong> {{ message.timestamp }}</p>
-                <p>{{ message.body }}</p>
-                <a href="{{ url_for('views.send_message', recipient=message.author.first_name) }}" class="btn btn-primary">Reply</a>
+            <div class="card border mb-3">
+                <div class="card-body">
+                    <h5 class="card-title"><strong>From:</strong> <a href="{{ url_for('views.profile', first_name=message.author.first_name) }}">{{ message.author.first_name }}</a></h5>
+                    <h6 class="card-subtitle mb-2 text-muted"><strong>Timestamp:</strong> {{ message.timestamp }}</h6>
+                    <p class="card-text">{{ message.body }}</p>
+                    <a href="{{ url_for('views.send_message', recipient=message.author.first_name) }}" class="btn btn-primary">Reply</a>
+                </div>
             </div>
         {% endfor %}
     </div>
@@ -26,4 +29,5 @@
             </li>
         </ul>
     </nav>
+</div>
 {% endblock %}
