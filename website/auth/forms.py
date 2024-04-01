@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField
-from wtforms.validators import DataRequired, Email, EqualTo, Length
+from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError
 from website import db
-
+from website.models import User
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -28,6 +28,18 @@ class ChangePasswordForm(FlaskForm):
 class UpdateFirstNameForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired()])
     submit = SubmitField('Update First Name')
+
+    # def __init__(self, original_first_name, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.original_first_name = original_first_name
+    #
+    # def validate_username(self, first_name):
+    #     if first_name.data != self.original_username:
+    #         user = db.session.scalar(db.select(User).where(
+    #             User.first_name == self.first_name.data))
+    #         if user is not None:
+    #             raise ValidationError('Please use a different username.')
+
 
 
 class EditProfileForm(FlaskForm):

@@ -8,6 +8,7 @@ from website.auth.forms import (SignupForm, LoginForm, ChangePasswordForm, Updat
 from datetime import date, datetime
 from website.auth import auth
 from website.auth.email import send_password_reset_email
+from sqlalchemy.exc import IntegrityError
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -87,7 +88,7 @@ def change_password():
 @auth.route('/update-first-name', methods=['GET', 'POST'])
 @login_required
 def update_first_name():
-    form = UpdateFirstNameForm()
+    form = UpdateFirstNameForm(current_user.first_name, current_user)
     if form.validate_on_submit():
         user = User.query.get(current_user.id)
         user.first_name = form.first_name.data

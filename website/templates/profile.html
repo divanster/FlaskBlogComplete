@@ -10,7 +10,7 @@
       <div class="card">
         <div class="card-body">
           <h1 class="card-title">{{ user.first_name }}</h1>
-          <img src="{{ user.avatar(150) }}" class="card-img-top" alt="User Avatar">
+          <img src="{{ user.avatar(50) }}" class="card-img-top" alt="User Avatar" style="max-width: 100px;">
           <div class="card-text">
             <p><strong>Email:</strong> {{ user.email }}</p>
             <p><strong>About Me:</strong> {{ user.about_me }}</p>
@@ -35,21 +35,37 @@
       {% endif %}
     </div>
     <div class="col-md-6">
-      <h2>Blog Posts</h2>
-      <div class="list-group">
-        {% if user and user.blog_posts %}
-        {% for post in user.blog_posts %}
-        <div class="list-group-item list-group-item-action">
-          <h5 class="mb-1" style="color: blue;">{{ loop.index }}. {{ post.title }}</h5> <!-- Display post index -->
-          <p class="mb-1">{{ post.content[:100] }}{% if post.content|length > 100 %}... <a href="{{ url_for('views.blogpost', post_id=post.id) }}">Read More</a>{% endif %}</p>
+      <h2 style="position: sticky; top: 0;">My Posts</h2>
+      <div class="post-container" style="max-height: 300px; overflow-y: scroll;">
+        {% if current_user.blog_posts %}
+        <div class="list-group">
+          {% for post in current_user.blog_posts %}
+          <div class="list-group-item list-group-item-action">
+            <h5 class="mb-1" style="color: blue;">{{ loop.index }}. {{ post.title }}</h5> <!-- Display post index -->
+            <p class="mb-1">{{ post.content[:100] }}{% if post.content|length > 100 %}... <a href="{{ url_for('views.blogpost', post_id=post.id) }}">Read More</a>{% endif %}</p>
+          </div>
+          {% endfor %}
         </div>
-        {% if not loop.last %}
-        <hr> <!-- Add a horizontal line between each blog post -->
-        {% endif %}
-        {% endfor %}
         {% else %}
         <div class="alert alert-info" role="alert">
-          No blog posts found.
+          No posts found.
+        </div>
+        {% endif %}
+      </div>
+      <div class="post-container mt-3" style="max-height: 300px; overflow-y: scroll;">
+        <h2 style="position: sticky; top: 0;">Following Posts</h2>
+        {% if user %}
+        <div class="list-group">
+          {% for post in user.following_posts() %}
+          <div class="list-group-item list-group-item-action">
+            <h5 class="mb-1" style="color: green;">{{ loop.index }}. {{ post.title }}</h5> <!-- Display post index -->
+            <p class="mb-1">{{ post.content[:100] }}{% if post.content|length > 100 %}... <a href="{{ url_for('views.blogpost', post_id=post.id) }}">Read More</a>{% endif %}</p>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="alert alert-info" role="alert">
+          No following posts found.
         </div>
         {% endif %}
       </div>

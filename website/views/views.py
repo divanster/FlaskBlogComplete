@@ -151,7 +151,8 @@ def edit_post(post_id):
 def profile(first_name):
     user = User.query.filter_by(first_name=first_name).first_or_404()
     blog_posts = user.blog_posts  # Assuming 'blog_posts' is the relationship to 'BlogPost'
-    return render_template('profile.html', user=user, blog_posts=blog_posts)
+    following_posts = current_user.following_posts().all()
+    return render_template('profile.html', user=user, blog_posts=blog_posts, following_posts=following_posts)
 
 
 @views.route('/post/<int:post_id>', methods=['GET', 'POST'])

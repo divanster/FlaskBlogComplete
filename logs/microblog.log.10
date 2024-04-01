@@ -1,4 +1,4 @@
-2024-03-26 00:00:05,351 ERROR: Exception on /sign-up [POST] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+2024-03-28 23:24:57,246 ERROR: Exception on /edit-profile [POST] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
 Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1960, in _exec_single_context
     self.dialect.do_execute(
@@ -21,7 +21,10 @@ Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 855, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/auth/auth.py", line 58, in sign_up
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 230, in edit_profile
     db.session.commit()
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/sqlalchemy/orm/scoping.py", line 597, in commit
     return self._proxied.commit()
@@ -52,11 +55,11 @@ Traceback (most recent call last):
     rec.execute(self)
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
     util.preloaded.orm_persistence.save_obj(
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
-    _emit_insert_statements(
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
-    result = connection.execute(
-             ^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py", line 85, in save_obj
+    _emit_update_statements(
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py", line 912, in _emit_update_statements
+    c = connection.execute(
+        ^^^^^^^^^^^^^^^^^^^
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1408, in execute
     return meth(
            ^^^^^
@@ -78,48 +81,7 @@ Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
     cursor.execute(statement, parameters)
 sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: user.first_name
-[SQL: INSERT INTO user (email, password, first_name, last_seen, about_me, timezone, registered_at, last_message_read_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)]
-[parameters: ('divanster@gmail.com', 'pbkdf2:sha256:600000$drZJiubHPRbdJ4LJ$283e193c506d8630293b217b71f2f60739b1b2d51077fc968fcba6c333d2c7b9', 'Ivan', '2024-03-25 22:00:05.350380', None, None, '2024-03-25 22:00:05.350383', None)]
+[SQL: UPDATE user SET first_name=? WHERE user.id = ?]
+[parameters: ('Blogger1', 6)]
 (Background on this error at: https://sqlalche.me/e/20/gkpj)
-2024-03-26 00:04:28,697 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:89]
-2024-03-26 00:05:38,720 ERROR: Exception on /reset_password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNldF9wYXNzd29yZCI6NiwiZXhwIjoxNzExNDA0ODc4LjY0ODYzOX0.OLvZhMbFJIcT4k1iOiMCYr3iN6Okhh7JWAJbnaUaSYo [GET] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
-Traceback (most recent call last):
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 872, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 870, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 855, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/auth/auth.py", line 127, in reset_password
-    return render_template('reset_password.html', form=form)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 1301, in render
-    self.environment.handle_exception()
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 936, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/templates/reset_password.html", line 1, in top-level template code
-    Dear {{ user.first_name }},
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/jinja2/environment.py", line 485, in getattr
-    return getattr(obj, attribute)
-           ^^^^^^^^^^^^^^^^^^^^^^^
-jinja2.exceptions.UndefinedError: 'user' is undefined
-2024-03-26 00:06:56,792 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:89]
-2024-03-26 00:17:55,811 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:89]
-2024-03-26 00:21:10,168 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:89]
-2024-03-26 00:24:01,505 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:89]
-2024-03-26 17:19:34,759 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:89]
-2024-03-26 17:43:12,606 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:89]
-2024-03-26 17:43:34,518 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:89]
+2024-03-28 23:25:58,530 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:89]
