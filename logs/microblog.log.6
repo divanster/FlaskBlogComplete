@@ -1,4 +1,4 @@
-2024-04-01 18:11:29,271 ERROR: Exception on /edit-profile [POST] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+2024-04-02 23:50:21,204 ERROR: Exception on /update-first-name [POST] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
 Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1960, in _exec_single_context
     self.dialect.do_execute(
@@ -24,7 +24,7 @@ Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/views/views.py", line 230, in edit_profile
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/auth/auth.py", line 95, in update_first_name
     db.session.commit()
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/sqlalchemy/orm/scoping.py", line 597, in commit
     return self._proxied.commit()
@@ -82,6 +82,6 @@ Traceback (most recent call last):
     cursor.execute(statement, parameters)
 sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: user.first_name
 [SQL: UPDATE user SET first_name=? WHERE user.id = ?]
-[parameters: ('Divanstercheto', 4)]
+[parameters: ('Divanstercheto', 1)]
 (Background on this error at: https://sqlalche.me/e/20/gkpj)
-2024-04-01 18:24:40,323 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:89]
+2024-04-02 23:55:08,812 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:89]

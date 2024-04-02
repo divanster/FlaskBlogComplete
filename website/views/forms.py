@@ -27,10 +27,10 @@ class EditPostForm(FlaskForm):
 #     submit = SubmitField('Update First Name')
 
 
-class EditProfileForm(FlaskForm):
-    first_name = StringField('First Name', validators=[DataRequired(), Length(min=1, max=150)])
-    about_me = TextAreaField('About Me', validators=[Length(max=300)])
-    submit = SubmitField('Save Changes')
+# class EditProfileForm(FlaskForm):
+#     first_name = StringField('First Name', validators=[DataRequired(), Length(min=1, max=150)])
+#     about_me = TextAreaField('About Me', validators=[Length(max=300)])
+#     submit = SubmitField('Save Changes')
 
 
 class EmptyForm(FlaskForm):

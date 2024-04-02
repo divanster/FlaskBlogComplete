@@ -3,7 +3,7 @@ from website.models import User, Comment, BlogPost, Like, Message, Notification
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
 
-from .forms import CommentForm, PostForm, EditPostForm, EditProfileForm, EmptyForm, MessageForm
+from .forms import CommentForm, PostForm, EditPostForm, EmptyForm, MessageForm
 from datetime import date, datetime, timezone
 from website.utilities import get_local_time
 from website.views import views
@@ -218,22 +218,6 @@ def followers():
     followers_info = [{'username': follower.first_name, 'email': follower.email} for follower in
                       current_user.followers.all()]
     return render_template('followers.html', followers_info=followers_info, user=current_user)
-
-
-@views.route('/edit-profile', methods=['GET', 'POST'])
-@login_required
-def edit_profile():
-    form = EditProfileForm()
-    if form.validate_on_submit():
-        current_user.first_name = form.first_name.data
-        current_user.about_me = form.about_me.data
-        db.session.commit()
-        flash('Your profile has been updated!', 'success')
-        return redirect(url_for('views.edit_profile'))
-    elif request.method == 'GET':
-        form.first_name.data = current_user.first_name
-        form.about_me.data = current_user.about_me
-    return render_template('edit_profile.html', title='Edit Profile', form=form, user=current_user)
 
 
 @views.route('/like_post/<int:post_id>', methods=['POST'])

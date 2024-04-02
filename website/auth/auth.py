@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import Blueprint, render_template, flash, redirect, url_for, request
 from website import db
 from website.models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
-from website.auth.forms import (SignupForm, LoginForm, ChangePasswordForm, UpdateFirstNameForm,
+from website.auth.forms import (SignupForm, LoginForm, ChangePasswordForm, EditProfileForm,
                                 ResetPasswordRequestForm, ResetPasswordForm)
 from datetime import date, datetime
 from website.auth import auth
@@ -87,23 +87,19 @@ def change_password():
 
 @auth.route('/update-first-name', methods=['GET', 'POST'])
 @login_required
-def update_first_name():
-    form = UpdateFirstNameForm()
+def edit_profile():
+    form = EditProfileForm(current_user.first_name)
     if form.validate_on_submit():
-        new_first_name = form.first_name.data
-        current_user.first_name = new_first_name
-        try:
-            db.session.commit()
-            flash('Your first name has been updated!', 'success')
-            return redirect(url_for('views.blogpost'))
-        except Exception as e:
-            # Handle integrity constraint violation (e.g., unique constraint)
-            db.session.rollback()
-            flash('Error updating first name. Please try again.', 'danger')
-            return render_template('update_first_name.html', title='Update First Name', form=form, user=current_user)
-
-    # If form validation fails, render the update form again with the validation errors
-    return render_template('update_first_name.html', title='Update First Name', form=form, user=current_user)
+        current_user.first_name = form.first_name.data
+        current_user.about_me = form.about_me.data
+        db.session.commit()
+        flash('Your changes have been saved.', 'success')
+        return redirect(url_for('auth.edit_profile'))
+    elif request.method == 'GET':
+        form.first_name.data = current_user.first_name
+        form.about_me.data = current_user.about_me
+    return render_template('edit_profile.html', title='Edit Profile',
+                           form=form, user=current_user)
 
 
 @auth.route('/reset_password_request', methods=['GET', 'POST'])

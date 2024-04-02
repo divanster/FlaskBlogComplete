@@ -26,33 +26,23 @@ class ChangePasswordForm(FlaskForm):
     submit = SubmitField('Change Password')
 
 
-class UpdateFirstNameForm(FlaskForm):
-    first_name = StringField('First Name', validators=[DataRequired()])
-    submit = SubmitField('Update First Name')
-
-    def validate_first_name(self, field):
-        # Check if the new first name is already taken
-        existing_user = User.query.filter_by(first_name=self.first_name.data).first()
-        if existing_user and existing_user.id != current_user.id:
-            raise ValidationError('This first name is already taken. Please choose a different one.')
-
-    # def __init__(self, original_first_name, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.original_first_name = original_first_name
-    #
-    # def validate_username(self, first_name):
-    #     if first_name.data != self.original_username:
-    #         user = db.session.scalar(db.select(User).where(
-    #             User.first_name == self.first_name.data))
-    #         if user is not None:
-    #             raise ValidationError('Please use a different username.')
-
-
 
 class EditProfileForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired(), Length(min=1, max=150)])
     about_me = TextAreaField('About Me', validators=[Length(max=300)])
     submit = SubmitField('Save Changes')
+
+    def __init__(self, original_first_name, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.original_first_name = original_first_name
+
+    def validate_first_name(self, first_name):
+        if first_name.data != self.original_first_name:
+            user = User.query.filter_by(first_name=first_name.data).first()
+            # user = db.session.scalar(db.select(User).where(
+            #     User.first_name == self.first_name.data))
+            if user is not None:
+                raise ValidationError('Please use a different username. This is already taken.')
 
 
 class ResetPasswordRequestForm(FlaskForm):

@@ -1,4 +1,4 @@
-2024-04-01 18:01:50,471 ERROR: Exception on /edit-profile [POST] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+2024-04-02 23:33:35,032 ERROR: Exception on /edit-profile [POST] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
 Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1960, in _exec_single_context
     self.dialect.do_execute(
@@ -84,5 +84,4 @@ sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed
 [SQL: UPDATE user SET first_name=? WHERE user.id = ?]
 [parameters: ('Divanstercheto', 1)]
 (Background on this error at: https://sqlalche.me/e/20/gkpj)
-2024-04-01 18:04:41,703 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:89]
-2024-04-01 18:06:38,623 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:89]
+2024-04-02 23:40:31,381 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:89]
