@@ -1,3 +1,4 @@
+from flask_login import current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError
@@ -28,6 +29,12 @@ class ChangePasswordForm(FlaskForm):
 class UpdateFirstNameForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired()])
     submit = SubmitField('Update First Name')
+
+    def validate_first_name(self, field):
+        # Check if the new first name is already taken
+        existing_user = User.query.filter_by(first_name=self.first_name.data).first()
+        if existing_user and existing_user.id != current_user.id:
+            raise ValidationError('This first name is already taken. Please choose a different one.')
 
     # def __init__(self, original_first_name, *args, **kwargs):
     #     super().__init__(*args, **kwargs)

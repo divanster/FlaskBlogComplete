@@ -88,13 +88,21 @@ def change_password():
 @auth.route('/update-first-name', methods=['GET', 'POST'])
 @login_required
 def update_first_name():
-    form = UpdateFirstNameForm(current_user.first_name, current_user)
+    form = UpdateFirstNameForm()
     if form.validate_on_submit():
-        user = User.query.get(current_user.id)
-        user.first_name = form.first_name.data
-        db.session.commit()
-        flash('Your first name has been updated!', 'success')
-        return redirect(url_for('views.blogpost'))
+        new_first_name = form.first_name.data
+        current_user.first_name = new_first_name
+        try:
+            db.session.commit()
+            flash('Your first name has been updated!', 'success')
+            return redirect(url_for('views.blogpost'))
+        except Exception as e:
+            # Handle integrity constraint violation (e.g., unique constraint)
+            db.session.rollback()
+            flash('Error updating first name. Please try again.', 'danger')
+            return render_template('update_first_name.html', title='Update First Name', form=form, user=current_user)
+
+    # If form validation fails, render the update form again with the validation errors
     return render_template('update_first_name.html', title='Update First Name', form=form, user=current_user)
 
 
