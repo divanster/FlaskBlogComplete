@@ -1,4 +1,4 @@
-2024-04-02 23:50:21,204 ERROR: Exception on /update-first-name [POST] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+2024-04-02 23:55:27,701 ERROR: Exception on /update-first-name [POST] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
 Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1960, in _exec_single_context
     self.dialect.do_execute(
@@ -24,7 +24,7 @@ Traceback (most recent call last):
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/apple/ProjectBackups/Flask_Packages/website/auth/auth.py", line 95, in update_first_name
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/auth/auth.py", line 95, in edit_profile
     db.session.commit()
   File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/sqlalchemy/orm/scoping.py", line 597, in commit
     return self._proxied.commit()
@@ -84,4 +84,36 @@ sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed
 [SQL: UPDATE user SET first_name=? WHERE user.id = ?]
 [parameters: ('Divanstercheto', 1)]
 (Background on this error at: https://sqlalche.me/e/20/gkpj)
-2024-04-02 23:55:08,812 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:89]
+2024-04-02 23:56:01,572 ERROR: Exception on /update-first-name [POST] [in /Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py:828]
+Traceback (most recent call last):
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/website/auth/auth.py", line 97, in edit_profile
+    return redirect(url_for('edit_profile'))
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/helpers.py", line 220, in url_for
+    return current_app.url_for(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1074, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/flask/app.py", line 1063, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/apple/ProjectBackups/Flask_Packages/.venv/lib/python3.12/site-packages/werkzeug/routing/map.py", line 919, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_profile'. Did you mean 'auth.edit_profile' instead?
+2024-04-02 23:57:22,371 INFO: Microblog startup [in /Users/apple/ProjectBackups/Flask_Packages/website/__init__.py:89]

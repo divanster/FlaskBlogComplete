@@ -45,9 +45,26 @@
                                 {{ post.author.first_name }}
                             </a>
                         </h2>
+
+                        <!-- Follow/Unfollow Buttons -->
+                        <div>
+                            {% if current_user != post.author %}
+                                {% if current_user.is_following(post.author) %}
+                                    <form method="POST" action="{{ url_for('views.unfollow', username=post.author.first_name) }}">
+                                        {{ form.hidden_tag() }}
+                                        <button type="submit" class="btn btn-sm btn-danger">Unfollow</button>
+                                    </form>
+                                {% else %}
+                                    <form method="POST" action="{{ url_for('views.follow', username=post.author.first_name) }}">
+                                        {{ form.hidden_tag() }}
+                                        <button type="submit" class="btn btn-sm btn-primary">Follow</button>
+                                    </form>
+                                {% endif %}
+                                <span class="text-muted ml-2">Followers: <a href="{{ url_for('views.show_followers', username=post.author.first_name) }}">{{ post.author.followers_count() }}</a></span>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-
 
                 <!-- Delete Button (if the current user is the author) -->
                 <div class="card-footer">
@@ -61,10 +78,7 @@
                     {% if user != current_user %}
                         <a href="{{ url_for('views.send_message', recipient=post.author.username) }}" class="btn btn-sm btn-primary">Send private message</a>
                     {% endif %}
-
                 </div>
-
-
 
                 <!-- Post Title and Content -->
                 <div class="card-body">
@@ -78,8 +92,6 @@
                     </p>
                     <a href="{{ url_for('views.post_detail', post_id=post.id) }}" class="btn btn-sm btn-secondary mt-2">Read Me</a>
                 </div>
-
-
 
                 <!-- Like Button -->
                 <div class="card-footer">
@@ -101,25 +113,6 @@
                     <div class="text-muted">
                         Posted on <b>{{ post.date.strftime('%d/%m/%Y %H:%M') }}</b>
                     </div>
-                </div>
-
-                <!-- Follow/Unfollow Buttons -->
-                <div class="card-footer">
-                    {% if current_user != post.author %}
-                        {% if current_user.is_following(post.author) %}
-                            <form method="POST" action="{{ url_for('views.unfollow', username=post.author.first_name) }}">
-                                {{ form.hidden_tag() }}
-                                <button type="submit" class="btn btn-sm btn-danger">Unfollow</button>
-                            </form>
-                        {% else %}
-                            <form method="POST" action="{{ url_for('views.follow', username=post.author.first_name) }}">
-                                {{ form.hidden_tag() }}
-                                <button type="submit" class="btn btn-sm btn-primary">Follow</button>
-                            </form>
-                        {% endif %}
-                        <span class="text-muted ml-2">Followers: <a href="{{ url_for('views.show_followers', username=post.author.first_name) }}">{{ post.author.followers_count() }}</a></span>
-
-                    {% endif %}
                 </div>
             </div>
             {% endfor %}
@@ -157,31 +150,6 @@
 
 {% block javascript %}
 
-{#    {{ ckeditor.load() }} {{ ckeditor.config(name='content') }}#}
-{#    {{ render_form(post_form) }}#}
-
-{#<script src="https://cdn.ckeditor.com/ckeditor5/35.0.0/classic/ckeditor.js"></script>#}
-{##}
-{#<script>#}
-{#    document.addEventListener('DOMContentLoaded', function() {#}
-{#        const editor = ClassicEditor#}
-{#            .create(document.querySelector('.ckeditor'))#}
-{#            .catch(error => {#}
-{#                console.error(error);#}
-{#            });#}
-{##}
-{#        // Prevent CKEditor instance destruction on form submission#}
-{#        document.querySelector('form').addEventListener('submit', function() {#}
-{#            // Optionally, you can destroy the editor here if needed#}
-{#            // editor.destroy();#}
-{#        });#}
-{#    });#}
-{#</script>#}
-
-
-
-
-    <script src="{{ url_for('static', filename='user_profile.js') }}"></script>
+<script src="{{ url_for('static', filename='user_profile.js') }}"></script>
 
 {% endblock %}
-
