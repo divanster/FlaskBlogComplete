@@ -45,7 +45,7 @@
               <div class="list-group-item list-group-item-action">
                 <!-- Make post title a clickable link -->
                 <h5 class="mb-1" style="color: blue;"><a href="{{ url_for('views.post_detail', post_id=post.id) }}">{{ loop.index }}. {{ post.title }}</a></h5>
-                <p class="mb-1">{{ post.content[:100] }}{% if post.content|length > 100 %}... <a href="{{ url_for('views.post_detail', post_id=post.id) }}">Read More</a>{% endif %}</p>
+                <p class="mb-1">{{ post.content[:100]|safe }}{% if post.content|length > 100 %}... <a href="{{ url_for('views.post_detail', post_id=post.id) }}">Read More</a>{% endif %}</p>
               </div>
               {% endfor %}
             </div>
@@ -65,7 +65,7 @@
               <div class="list-group-item list-group-item-action">
                 <!-- Make post title a clickable link -->
                 <h5 class="mb-1"><a href="{{ url_for('views.post_detail', post_id=post.id) }}" style="color: green;">{{ loop.index }}. {{ post.title }}</a></h5>
-                <p class="mb-1">{{ post.content[:100] }}{% if post.content|length > 100 %}... <a href="{{ url_for('views.post_detail', post_id=post.id) }}">Read More</a>{% endif %}</p>
+                <p class="mb-1">{{ post.content[:100]|safe }}{% if post.content|length > 100 %}... <a href="{{ url_for('views.post_detail', post_id=post.id) }}">Read More</a>{% endif %}</p>
               </div>
               {% endfor %}
             </div>
