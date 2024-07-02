@@ -64,5 +64,5 @@ Thumbs.db
 ehthumbs.db
 
 
-# Migrations
+# Migrations Alembic
 migrations/
